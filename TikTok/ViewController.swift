@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController  {
-
+class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
+    
     @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var recordButton: UIButton!
@@ -73,9 +73,26 @@ class ViewController: UIViewController  {
         }
     }
 
+    // MARK: AVCaptureFileOutputRecordingDelegate
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if error == nil {
+            UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        } else {
+            print("Error saving movie to disk: \(String(describing: error))")
+        }
+    }
+
     @IBAction func tappedRecord(_ sender: Any) {
         // TODO
-        print("Record tapped")
+        if self.captureOutput.isRecording {
+            self.captureOutput.stopRecording()
+        } else {
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let fileURL = paths[0].appendingPathComponent("tiktok_output.mov")
+            try? FileManager.default.removeItem(at: fileURL)
+            self.captureOutput.startRecording(to: fileURL, recordingDelegate: self)
+        }
     }
     
     @IBAction func tappedFlipCamera(_ sender: Any) {
