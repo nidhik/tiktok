@@ -11,6 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController  {
 
+    @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet var captureView: UIView!
@@ -20,6 +21,7 @@ class ViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,7 +59,6 @@ class ViewController: UIViewController  {
     func setupLivePreview() {
         
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.backgroundColor = UIColor.green.cgColor
         videoPreviewLayer.videoGravity = .resizeAspectFill
         videoPreviewLayer.connection?.videoOrientation = .portrait
         previewView.layer.addSublayer(videoPreviewLayer)
