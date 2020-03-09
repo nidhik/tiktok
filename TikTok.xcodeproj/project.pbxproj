@@ -15,6 +15,9 @@
 		0272158E2416B17000CF8EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0272158C2416B17000CF8EF1 /* LaunchScreen.storyboard */; };
 		027215992416B17100CF8EF1 /* TikTokTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027215982416B17100CF8EF1 /* TikTokTests.swift */; };
 		027215A42416B17100CF8EF1 /* TikTokUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027215A32416B17100CF8EF1 /* TikTokUITests.swift */; };
+		202BC51C1BF780F2987C4DBE /* Pods_TikTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAF9BC784AE31745DE4955B /* Pods_TikTok.framework */; };
+		715063A9AFE4873E520F9071 /* Pods_TikTokTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0292D80F54F52B64605077F5 /* Pods_TikTokTests.framework */; };
+		90ADBDA14F682F845FBC8607 /* Pods_TikTok_TikTokUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CAAE3F33286E4DE6B1E78A /* Pods_TikTok_TikTokUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,15 @@
 		0272159F2416B17100CF8EF1 /* TikTokUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TikTokUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		027215A32416B17100CF8EF1 /* TikTokUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikTokUITests.swift; sourceTree = "<group>"; };
 		027215A52416B17100CF8EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0292D80F54F52B64605077F5 /* Pods_TikTokTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTokTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D5158F0F664733A39556510 /* Pods-TikTokTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTokTests.debug.xcconfig"; path = "Target Support Files/Pods-TikTokTests/Pods-TikTokTests.debug.xcconfig"; sourceTree = "<group>"; };
+		45CAAE3F33286E4DE6B1E78A /* Pods_TikTok_TikTokUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok_TikTokUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47045D48F60CF9667C1B51A1 /* Pods-TikTok-TikTokUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok-TikTokUITests.release.xcconfig"; path = "Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5E7986754C1D4B47DA234F63 /* Pods-TikTokTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTokTests.release.xcconfig"; path = "Target Support Files/Pods-TikTokTests/Pods-TikTokTests.release.xcconfig"; sourceTree = "<group>"; };
+		8D5A40760542A5C5F1C91087 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
+		D4E770F3B65BAEF041A01955 /* Pods-TikTok-TikTokUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok-TikTokUITests.debug.xcconfig"; path = "Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB16A791B92FFF29CA5F7C93 /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
+		FEAF9BC784AE31745DE4955B /* Pods_TikTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				202BC51C1BF780F2987C4DBE /* Pods_TikTok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				715063A9AFE4873E520F9071 /* Pods_TikTokTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90ADBDA14F682F845FBC8607 /* Pods_TikTok_TikTokUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +98,8 @@
 				027215972416B17100CF8EF1 /* TikTokTests */,
 				027215A22416B17100CF8EF1 /* TikTokUITests */,
 				0272157F2416B16F00CF8EF1 /* Products */,
+				25C84A052684D4C21E60A81C /* Pods */,
+				537E1EB3B538EFCA2786882E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +145,30 @@
 			path = TikTokUITests;
 			sourceTree = "<group>";
 		};
+		25C84A052684D4C21E60A81C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D5A40760542A5C5F1C91087 /* Pods-TikTok.debug.xcconfig */,
+				EB16A791B92FFF29CA5F7C93 /* Pods-TikTok.release.xcconfig */,
+				D4E770F3B65BAEF041A01955 /* Pods-TikTok-TikTokUITests.debug.xcconfig */,
+				47045D48F60CF9667C1B51A1 /* Pods-TikTok-TikTokUITests.release.xcconfig */,
+				3D5158F0F664733A39556510 /* Pods-TikTokTests.debug.xcconfig */,
+				5E7986754C1D4B47DA234F63 /* Pods-TikTokTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		537E1EB3B538EFCA2786882E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FEAF9BC784AE31745DE4955B /* Pods_TikTok.framework */,
+				45CAAE3F33286E4DE6B1E78A /* Pods_TikTok_TikTokUITests.framework */,
+				0292D80F54F52B64605077F5 /* Pods_TikTokTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +176,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 027215A82416B17100CF8EF1 /* Build configuration list for PBXNativeTarget "TikTok" */;
 			buildPhases = (
+				FE97116E692CE7B207F76E94 /* [CP] Check Pods Manifest.lock */,
 				0272157A2416B16F00CF8EF1 /* Sources */,
 				0272157B2416B16F00CF8EF1 /* Frameworks */,
 				0272157C2416B16F00CF8EF1 /* Resources */,
+				49EF255154BD93E753D2914C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 027215AB2416B17100CF8EF1 /* Build configuration list for PBXNativeTarget "TikTokTests" */;
 			buildPhases = (
+				0A835886BA47EAB9FAE58BA7 /* [CP] Check Pods Manifest.lock */,
 				027215902416B17100CF8EF1 /* Sources */,
 				027215912416B17100CF8EF1 /* Frameworks */,
 				027215922416B17100CF8EF1 /* Resources */,
@@ -170,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 027215AE2416B17100CF8EF1 /* Build configuration list for PBXNativeTarget "TikTokUITests" */;
 			buildPhases = (
+				205B458CABB47DA50A77789D /* [CP] Check Pods Manifest.lock */,
 				0272159B2416B17100CF8EF1 /* Sources */,
 				0272159C2416B17100CF8EF1 /* Frameworks */,
 				0272159D2416B17100CF8EF1 /* Resources */,
+				C96B23DAC2E9D9A08C98375C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,6 +299,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A835886BA47EAB9FAE58BA7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TikTokTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		205B458CABB47DA50A77789D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TikTok-TikTokUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49EF255154BD93E753D2914C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TikTok/Pods-TikTok-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TikTok/Pods-TikTok-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TikTok/Pods-TikTok-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C96B23DAC2E9D9A08C98375C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE97116E692CE7B207F76E94 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TikTok-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0272157A2416B16F00CF8EF1 /* Sources */ = {
@@ -432,6 +581,7 @@
 		};
 		027215A92416B17100CF8EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D5A40760542A5C5F1C91087 /* Pods-TikTok.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -451,6 +601,7 @@
 		};
 		027215AA2416B17100CF8EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB16A791B92FFF29CA5F7C93 /* Pods-TikTok.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -470,6 +621,7 @@
 		};
 		027215AC2416B17100CF8EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D5158F0F664733A39556510 /* Pods-TikTokTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -492,6 +644,7 @@
 		};
 		027215AD2416B17100CF8EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E7986754C1D4B47DA234F63 /* Pods-TikTokTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -514,6 +667,7 @@
 		};
 		027215AF2416B17100CF8EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4E770F3B65BAEF041A01955 /* Pods-TikTok-TikTokUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -534,6 +688,7 @@
 		};
 		027215B02416B17100CF8EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47045D48F60CF9667C1B51A1 /* Pods-TikTok-TikTokUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

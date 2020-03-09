@@ -82,16 +82,50 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             print("Error saving movie to disk: \(String(describing: error))")
         }
     }
+    
+    func animateRecordButton() {
+        let cornerRadiusAnimation = CASpringAnimation(keyPath: "cornerRadius")
+        cornerRadiusAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
+        cornerRadiusAnimation.fromValue = 40.0
+        cornerRadiusAnimation.toValue = 0.0
+        cornerRadiusAnimation.duration = 1.0;
+        self.recordButton.layer.cornerRadius = 0.0
+   
+        
+        let pulse1 = CASpringAnimation(keyPath: "transform.scale")
+        pulse1.duration = 0.6
+        pulse1.fromValue = 1.0
+        pulse1.toValue = 1.12
+        pulse1.autoreverses = true
+        pulse1.repeatCount = 1
+        pulse1.initialVelocity = 0.5
+        pulse1.damping = 0.8
+
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 2.0
+        animationGroup.repeatCount = HUGE
+        animationGroup.animations = [pulse1]
+
+        self.recordButton.layer.add(animationGroup, forKey: "pulse")
+        self.recordButton.layer.add(cornerRadiusAnimation, forKey: "cornerRadius")
+    }
+    
+    func stopAnimatingRecordButton() {
+        self.recordButton.layer.removeAllAnimations()
+        self.recordButton.layer.cornerRadius = 40.0
+    }
 
     @IBAction func tappedRecord(_ sender: Any) {
         // TODO
         if self.captureOutput.isRecording {
             self.captureOutput.stopRecording()
+            self.stopAnimatingRecordButton()
         } else {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let fileURL = paths[0].appendingPathComponent("tiktok_output.mov")
             try? FileManager.default.removeItem(at: fileURL)
             self.captureOutput.startRecording(to: fileURL, recordingDelegate: self)
+            self.animateRecordButton()
         }
     }
     
