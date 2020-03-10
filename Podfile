@@ -7,6 +7,7 @@ target 'TikTok' do
 
   # Pods for TikTok
   pod 'Alamofire', '~> 5.0'
+  pod 'Parse'
   
   target 'TikTokTests' do
     inherit! :search_paths

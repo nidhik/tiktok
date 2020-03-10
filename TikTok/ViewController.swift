@@ -78,6 +78,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if error == nil {
             UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+            let client = MuxApiClient()
+            client.uploadVideo(fileURL: outputFileURL)
         } else {
             print("Error saving movie to disk: \(String(describing: error))")
         }
