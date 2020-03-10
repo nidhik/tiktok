@@ -42,7 +42,7 @@ class MuxApiClient: NSObject {
         }
     }
     
-    func uploadVideo(fileURL: URL) {
+    func uploadFileToParse(fileURL: URL) {
         do {
             let file = try PFFileObject(name: "myvideo.mp4", contentsAtPath: fileURL.path)
             let post = PFObject(className: "Post")
@@ -58,17 +58,37 @@ class MuxApiClient: NSObject {
         } catch (let error) {
             print(error)
         }
-        
-        
-//        createUploadUrlForAsset(completion: {(url, error) in
-//            if (error == nil) {
-//                AF.upload(fileURL, to: url!, method: .put).responseJSON { response in
-//                    debugPrint(response)
-//                }
-//            } else {
-//                print("Could not create direct upload url: \(String(describing: error))")
-//            }
-//        })
+    }
+    
+    func uploadFileToMux(fileURL: URL) {
+        createUploadUrlForAsset(completion: {(url, error) in
+            if (error == nil) {
+                AF.upload(fileURL, to: url!, method: .put).responseJSON { response in
+                    debugPrint(response)
+                }
+            } else {
+                print("Could not create direct upload url: \(String(describing: error))")
+            }
+        })
+    }
+    
+    func uploadVideo(fileURL: URL) {
+        PFCloud.callFunction(inBackground: "upload", withParameters: ["foo": "bar"], block: { (result, error) in
+            if (error == nil) {
+                print("direct upload info: \(String(describing: result))")
+                guard
+                    let result = result as? Dictionary<String, Any>,
+                    let muxUploadURL = result["url"] as? String else  {
+                        print("did not get mux direct upload url")
+                        return
+                }
+                AF.upload(fileURL, to: muxUploadURL, method: .put).responseJSON { response in
+                    debugPrint(response)
+                }
+            } else {
+                print(error ?? "error calling upload cloud function")
+            }
+        })
     }
     
 }
