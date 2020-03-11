@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
+class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
     @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var previewView: UIView!
@@ -129,6 +129,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             self.captureOutput.startRecording(to: fileURL, recordingDelegate: self)
             self.animateRecordButton()
         }
+    }
+    
+    @IBAction func tappedCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func tappedFlipCamera(_ sender: Any) {

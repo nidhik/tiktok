@@ -82,7 +82,7 @@ class MuxApiClient: NSObject {
                         print("did not get mux direct upload url")
                         return
                 }
-                AF.upload(fileURL, to: muxUploadURL, method: .put).responseJSON { response in
+                AF.upload(fileURL, to: muxUploadURL, method: .put).response { response in
                     debugPrint(response)
                 }
             } else {
