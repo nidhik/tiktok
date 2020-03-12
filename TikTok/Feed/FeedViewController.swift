@@ -23,7 +23,7 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.title = "Feed"
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()
-        loadPosts()
+//        loadPosts()
     }
     
     
@@ -32,6 +32,8 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
         self.view.insertSubview(tableNode.view, at: 0)
 //        self.view.addSubnode(tableNode)
         self.applyStyle()
+        self.tableNode.leadingScreensForBatching = 1.0;  // overriding default of 2.0
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -52,20 +54,7 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
         self.tableNode.dataSource = self
     }
     
-    func loadPosts() {
-        let query = PFQuery(className:"Post")
-        query.order(byDescending: "createdAt")
-        query.includeKey("asset")
-        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let objects = objects {
-                print("Successfully retrieved \(objects.count) posts.")
-                self.posts = objects
-                self.tableNode.reloadData()
-            }
-        }
-    }
+    
 }
 
 extension FeedViewController: ASTableDataSource {
@@ -89,5 +78,63 @@ extension FeedViewController: ASTableDelegate {
         let min = CGSize(width: width, height: (UIScreen.main.bounds.size.height/3) * 2);
         let max = CGSize(width: width, height: .infinity);
         return ASSizeRangeMake(min, max);
+    }
+    
+    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        return true
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        self.retrieveNextPageWithCompletion { (newPosts) in
+            self.insertNewRowsInTableNode(newPosts: newPosts)
+            context.completeBatchFetching(true)
+        }
+    }
+}
+
+extension FeedViewController {
+    
+    func loadPosts() {
+        let query = PFQuery(className:"Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("asset")
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let objects = objects {
+                print("Successfully retrieved \(objects.count) posts.")
+                self.posts = objects
+                self.tableNode.reloadData()
+            }
+        }
+    }
+
+    func retrieveNextPageWithCompletion( block: @escaping ([PFObject]) -> Void) {
+          let query = PFQuery(className:"Post")
+          query.order(byDescending: "createdAt")
+          query.includeKey("asset")
+          query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+              if let error = error {
+                  print(error.localizedDescription)
+              } else if let objects = objects {
+                  print("Successfully retrieved \(objects.count) posts.")
+                  DispatchQueue.main.async {
+                      block(objects)
+                  }
+              }
+          }
+    }
+    
+    func insertNewRowsInTableNode(newPosts: [PFObject]) {
+        let section = 0
+        var indexPaths: [IndexPath] = []
+        let total = self.posts.count + newPosts.count
+        for row in self.posts.count...total-1 {
+            let path = IndexPath(row: row, section: section)
+            indexPaths.append(path)
+        }
+        self.posts.append(contentsOf: newPosts)
+        self.tableNode.insertRows(at: indexPaths, with: .none)
+        
     }
 }
