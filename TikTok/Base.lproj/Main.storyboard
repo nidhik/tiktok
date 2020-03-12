@@ -132,40 +132,6 @@
             </objects>
             <point key="canvasLocation" x="1015.9420289855074" y="167.41071428571428"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="Evf-79-S5B">
-            <objects>
-                <viewController id="V1r-bN-ECF" customClass="ProfileViewController" customModule="TikTok" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iek-K5-Rjj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="xdb-GN-hNB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ANe-y4-Tqk"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3zH-tN-0P0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="710.14492753623199" y="-506.25"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="40t-et-1CS">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F67-xL-ILg" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Uk6-fn-Zhi">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="V1r-bN-ECF" kind="relationship" relationship="rootViewController" id="YtK-FW-FEl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lpq-P1-OQ1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-200.00000000000003" y="-506.25"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="481-FI-l0V">
             <objects>

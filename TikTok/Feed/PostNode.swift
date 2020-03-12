@@ -13,12 +13,14 @@ import Parse
 class PostNode: ASCellNode {
     var post: PFObject
     var backgroundImageNode: ASNetworkImageNode
+    var videoNode: ASVideoNode
     var gradientNode: GradientNode
     
     init(with post: PFObject) {
         self.post = post
         self.backgroundImageNode = ASNetworkImageNode()
         self.gradientNode = GradientNode()
+        self.videoNode = ASVideoNode()
         
         super.init()
         self.backgroundImageNode.url = self.getThumbnailURL(post: post)
@@ -27,14 +29,33 @@ class PostNode: ASCellNode {
         self.gradientNode.isLayerBacked = true;
         self.gradientNode.isOpaque = false;
         
-        self.addSubnode(self.backgroundImageNode)
+        self.videoNode.url = self.getThumbnailURL(post: post)
+        self.videoNode.shouldAutoplay = true
+        self.videoNode.shouldAutorepeat = true
+        self.videoNode.gravity = AVLayerVideoGravity.resizeAspectFill.rawValue;
+        DispatchQueue.main.async() {
+            self.videoNode.asset = AVAsset(url: self.getVideoURL(post: post)!)
+            self.videoNode.play()
+        }
+    
+        self.addSubnode(self.videoNode)
         self.addSubnode(self.gradientNode)
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let ratio = (constrainedSize.min.height)/constrainedSize.max.width
-        let imageRatioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.backgroundImageNode);
-        let gradientOverlaySpec = ASOverlayLayoutSpec(child:imageRatioSpec, overlay:self.gradientNode)
+        
+//        let ratio = (constrainedSize.min.height)/constrainedSize.max.width;
+        let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
+        
+        let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode);
+        
+//        // Layout all nodes absolute in a static layout spec
+//        videoNode.style.layoutPosition = CGPoint(x: 0, y: 0);
+//        videoNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height);
+//        let absoluteSpec = ASAbsoluteLayoutSpec(children: [self.videoNode])
+        
+        let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
         return gradientOverlaySpec
     }
     
@@ -47,6 +68,18 @@ class PostNode: ASCellNode {
         }
         
         let urlString = String(format: "https://image.mux.com/%@/thumbnail.jpg", id)
+        return URL(string: urlString)
+    }
+    
+    func getVideoURL(post: PFObject) -> URL? {
+        guard let asset = post["asset"] as? [String: Any],
+            let playbackIds = asset["playback_ids"] as? [[String: Any]],
+            let id = playbackIds[0]["id"] as? String else {
+                print("cannot get playback id from post")
+                return nil
+        }
+        
+        let urlString = String(format: "https://stream.mux.com/%@.m3u8", id)
         return URL(string: urlString)
     }
 }

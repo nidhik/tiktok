@@ -77,7 +77,6 @@ extension FeedViewController: ASTableDataSource {
         return {
             return PostNode(with: post)
         }
-        
     }
     
 }
