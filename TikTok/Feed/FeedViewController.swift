@@ -12,7 +12,7 @@ import Parse
 import AlamofireImage
 import AsyncDisplayKit
 
-class FeedViewController: UIViewController {
+class FeedViewController: UIViewController, UIScrollViewDelegate {
     
     var tableNode: ASTableNode!
     var posts : [PFObject] = []
@@ -43,6 +43,7 @@ class FeedViewController: UIViewController {
     func applyStyle() {
         self.view.backgroundColor = .systemPink
         self.tableNode.view.separatorStyle = .singleLine
+        self.tableNode.view.isPagingEnabled = true
         
     }
     
