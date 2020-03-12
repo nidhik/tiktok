@@ -79,7 +79,7 @@ class PostNode: ASCellNode {
                 return nil
         }
         
-        let urlString = String(format: "https://image.mux.com/%@/animated.gif", id)
+        let urlString = String(format: "https://image.mux.com/%@/thumbnail.jpg", id)
         return URL(string: urlString)
     }
     

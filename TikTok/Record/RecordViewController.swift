@@ -20,8 +20,11 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var videoDeviceInput: AVCaptureDeviceInput!
     
+    @IBOutlet weak var deleteSegmentButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
+    
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
-    mediaType: .video, position: .unspecified)
+                                                                       mediaType: .video, position: .unspecified)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +69,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer.videoGravity = .resizeAspectFill
         videoPreviewLayer.connection?.videoOrientation = .portrait
-        previewView.layer.addSublayer(videoPreviewLayer)
+        previewView.layer.insertSublayer(videoPreviewLayer, at: 0)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
@@ -77,7 +80,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             }
         }
     }
-
+    
     // MARK: AVCaptureFileOutputRecordingDelegate
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -98,7 +101,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         cornerRadiusAnimation.toValue = 0.0
         cornerRadiusAnimation.duration = 1.0;
         self.recordButton.layer.cornerRadius = 0.0
-   
+        
         
         let pulse1 = CASpringAnimation(keyPath: "transform.scale")
         pulse1.duration = 0.6
@@ -108,12 +111,12 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         pulse1.repeatCount = 1
         pulse1.initialVelocity = 0.5
         pulse1.damping = 0.8
-
+        
         let animationGroup = CAAnimationGroup()
         animationGroup.duration = 2.0
         animationGroup.repeatCount = HUGE
         animationGroup.animations = [pulse1]
-
+        
         self.recordButton.layer.add(animationGroup, forKey: "pulse")
         self.recordButton.layer.add(cornerRadiusAnimation, forKey: "cornerRadius")
     }
@@ -122,12 +125,12 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         self.recordButton.layer.removeAllAnimations()
         self.recordButton.layer.cornerRadius = 40.0
     }
-
+    
     @IBAction func tappedRecord(_ sender: Any) {
         // TODO
         if self.captureOutput.isRecording {
-            self.captureOutput.stopRecording()
-            self.stopAnimatingRecordButton()
+            // TODO: pause recording
+            
         } else {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let fileURL = paths[0].appendingPathComponent("tiktok_output.mov")
@@ -205,13 +208,22 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
     }
     
+    @IBAction func tappedDeleteSegment(_ sender: Any) {
+    }
+    
+    @IBAction func tappedDone(_ sender: Any) {
+        if self.captureOutput.isRecording {
+            self.captureOutput.stopRecording()
+            self.stopAnimatingRecordButton()
+        }
+    }
     func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:
-        [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
-        mediaType: .video, position: .unspecified)
+            [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
+                                                                mediaType: .video, position: .unspecified)
         let devices = discoverySession.devices
         guard !devices.isEmpty else { fatalError("Missing capture devices.")}
-
+        
         return devices.first(where: { device in device.position == position })!
     }
 }

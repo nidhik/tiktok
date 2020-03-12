@@ -23,7 +23,6 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.title = "Feed"
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()
-        //        loadPosts()
     }
     
     
