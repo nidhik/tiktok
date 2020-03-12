@@ -9,16 +9,24 @@
 import UIKit
 import AVFoundation
 
-class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
+class RecordViewController: UIViewController{
     
     @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet var captureView: UIView!
     var captureSession: AVCaptureSession!
-    var captureOutput: AVCaptureMovieFileOutput!
+
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var videoDeviceInput: AVCaptureDeviceInput!
+    
+    // NEW
+    private var _videoOutput: AVCaptureVideoDataOutput!
+    private var _assetWriter: AVAssetWriter!
+    private var _assetWriterInput: AVAssetWriterInput!
+    private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
+    private var _filename = ""
+    private var _time: Double = 0
     
     @IBOutlet weak var deleteSegmentButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
@@ -50,12 +58,16 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         do {
             let cameraInput = try AVCaptureDeviceInput(device: rearCamera)
             let audioInput = try AVCaptureDeviceInput(device: audioInput)
-            captureOutput = AVCaptureMovieFileOutput()
-            if captureSession.canAddInput(cameraInput) && captureSession.canAddInput(audioInput) && captureSession.canAddOutput(captureOutput) {
+            let output = AVCaptureVideoDataOutput()
+            if captureSession.canAddInput(cameraInput) && captureSession.canAddInput(audioInput) && captureSession.canAddOutput(output) {
                 captureSession.addInput(cameraInput)
                 captureSession.addInput(audioInput)
-                captureSession.addOutput(captureOutput)
                 self.videoDeviceInput = cameraInput
+                
+                captureSession.addOutput(output)
+                self._videoOutput = output
+                self._videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.nidhi.tiktok.record"))
+                
                 setupLivePreview()
             }
         }
@@ -79,19 +91,6 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.videoPreviewLayer.frame = self.previewView.bounds
             }
         }
-    }
-    
-    // MARK: AVCaptureFileOutputRecordingDelegate
-    
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        if error == nil {
-            UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-            let client = MuxApiClient()
-            client.uploadVideo(fileURL: outputFileURL)
-        } else {
-            print("Error saving movie to disk: \(String(describing: error))")
-        }
-        self.dismiss(animated: true, completion: nil)
     }
     
     func animateRecordButton() {
@@ -125,27 +124,30 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         self.recordButton.layer.removeAllAnimations()
         self.recordButton.layer.cornerRadius = 40.0
     }
+    private enum _CaptureState {
+        case idle, start, capturing, end
+    }
+    private var _captureState = _CaptureState.idle
     
     @IBAction func tappedRecord(_ sender: Any) {
-        // TODO
-        if self.captureOutput.isRecording {
-            // TODO: pause recording
-            
-        } else {
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let fileURL = paths[0].appendingPathComponent("tiktok_output.mov")
-            try? FileManager.default.removeItem(at: fileURL)
-            self.captureOutput.startRecording(to: fileURL, recordingDelegate: self)
+        switch _captureState {
+        case .idle:
+            _captureState = .start
             self.animateRecordButton()
+        case .capturing:
+            // TODO: this should actually idle
+            _captureState = .end
+        default:
+            break
         }
     }
+    
     
     @IBAction func tappedCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func tappedFlipCamera(_ sender: Any) {
-        // TODO: flip the camera
         print("Flip camera tapped")
         DispatchQueue.global(qos: .userInitiated).async {
             let currentVideoDevice = self.videoDeviceInput.device
@@ -194,11 +196,11 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                     } else {
                         self.captureSession.addInput(self.videoDeviceInput)
                     }
-                    if let connection = self.captureOutput?.connection(with: .video) {
-                        if connection.isVideoStabilizationSupported {
-                            connection.preferredVideoStabilizationMode = .auto
-                        }
-                    }
+//                    if let connection = self._videoOutput?.connection(with: .video) {
+//                        if connection.isVideoStabilizationSupported {
+//                            connection.preferredVideoStabilizationMode = .auto
+//                        }
+//                    }
                     
                     self.captureSession.commitConfiguration()
                 } catch {
@@ -211,12 +213,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     @IBAction func tappedDeleteSegment(_ sender: Any) {
     }
     
-    @IBAction func tappedDone(_ sender: Any) {
-        if self.captureOutput.isRecording {
-            self.captureOutput.stopRecording()
-            self.stopAnimatingRecordButton()
-        }
-    }
+
     func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:
             [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
@@ -225,5 +222,56 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         guard !devices.isEmpty else { fatalError("Missing capture devices.")}
         
         return devices.first(where: { device in device.position == position })!
+    }
+}
+
+extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
+        switch _captureState {
+        case .start:
+            // Set up recorder
+            _filename = UUID().uuidString
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
+            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mov)
+            let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
+            input.mediaTimeScale = CMTimeScale(bitPattern: 600)
+            input.expectsMediaDataInRealTime = true
+            input.transform = CGAffineTransform(rotationAngle: .pi/2)
+            let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
+            if writer.canAdd(input) {
+                writer.add(input)
+            }
+            writer.startWriting()
+            writer.startSession(atSourceTime: .zero)
+            _assetWriter = writer
+            _assetWriterInput = input
+            _adpater = adapter
+            _captureState = .capturing
+            _time = timestamp
+        case .capturing:
+            if _assetWriterInput?.isReadyForMoreMediaData == true {
+                let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(600))
+                _adpater?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time)
+            }
+            break
+        case .end:
+            guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
+            DispatchQueue.main.async {
+                self.stopAnimatingRecordButton()
+            }
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            _assetWriterInput?.markAsFinished()
+            _assetWriter?.finishWriting { [weak self] in
+                self?._captureState = .idle
+                self?._assetWriter = nil
+                self?._assetWriterInput = nil
+                let client = MuxApiClient()
+                client.uploadVideo(fileURL: url)
+            }
+        default:
+            break
+        }
     }
 }
