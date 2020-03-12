@@ -258,9 +258,6 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             break
         case .end:
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            DispatchQueue.main.async {
-                self.stopAnimatingRecordButton()
-            }
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
@@ -269,6 +266,10 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self?._assetWriterInput = nil
                 let client = MuxApiClient()
                 client.uploadVideo(fileURL: url)
+                DispatchQueue.main.async {
+                    self?.stopAnimatingRecordButton()
+                    self?.dismiss(animated: true, completion: nil)
+                }
             }
         default:
             break
