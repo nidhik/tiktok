@@ -140,4 +140,14 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         // TODO: flip the camera
         print("Flip camera tapped")
     }
+    
+    func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:
+        [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
+        mediaType: .video, position: .unspecified)
+        let devices = discoverySession.devices
+        guard !devices.isEmpty else { fatalError("Missing capture devices.")}
+
+        return devices.first(where: { device in device.position == position })!
+    }
 }
