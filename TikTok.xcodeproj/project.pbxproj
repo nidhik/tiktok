@@ -19,6 +19,10 @@
 		02BE8D0F2418CAE500AC8A04 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BE8D0E2418CAE500AC8A04 /* FeedViewController.swift */; };
 		02E184182419F91A00E005CD /* PostNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E184172419F91A00E005CD /* PostNode.swift */; };
 		02E1841C2419FC7600E005CD /* GradientNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E1841A2419FC7500E005CD /* GradientNode.m */; };
+		02E1841E241A32B300E005CD /* SocialControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E1841D241A32B300E005CD /* SocialControlsView.xib */; };
+		02E18420241A332600E005CD /* PostDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E1841F241A332600E005CD /* PostDetails.xib */; };
+		02E18422241A33FF00E005CD /* SocialControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E18421241A33FF00E005CD /* SocialControlsView.swift */; };
+		02E18424241A37F500E005CD /* PostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E18423241A37F500E005CD /* PostDetails.swift */; };
 		202BC51C1BF780F2987C4DBE /* Pods_TikTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAF9BC784AE31745DE4955B /* Pods_TikTok.framework */; };
 		715063A9AFE4873E520F9071 /* Pods_TikTokTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0292D80F54F52B64605077F5 /* Pods_TikTokTests.framework */; };
 		90ADBDA14F682F845FBC8607 /* Pods_TikTok_TikTokUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CAAE3F33286E4DE6B1E78A /* Pods_TikTok_TikTokUITests.framework */; };
@@ -63,6 +67,10 @@
 		02E184192419FC7500E005CD /* TikTok-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TikTok-Bridging-Header.h"; sourceTree = "<group>"; };
 		02E1841A2419FC7500E005CD /* GradientNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientNode.m; sourceTree = "<group>"; };
 		02E1841B2419FC7600E005CD /* GradientNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientNode.h; sourceTree = "<group>"; };
+		02E1841D241A32B300E005CD /* SocialControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialControlsView.xib; sourceTree = "<group>"; };
+		02E1841F241A332600E005CD /* PostDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetails.xib; sourceTree = "<group>"; };
+		02E18421241A33FF00E005CD /* SocialControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialControlsView.swift; sourceTree = "<group>"; };
+		02E18423241A37F500E005CD /* PostDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetails.swift; sourceTree = "<group>"; };
 		3D5158F0F664733A39556510 /* Pods-TikTokTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTokTests.debug.xcconfig"; path = "Target Support Files/Pods-TikTokTests/Pods-TikTokTests.debug.xcconfig"; sourceTree = "<group>"; };
 		45CAAE3F33286E4DE6B1E78A /* Pods_TikTok_TikTokUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok_TikTokUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47045D48F60CF9667C1B51A1 /* Pods-TikTok-TikTokUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok-TikTokUITests.release.xcconfig"; path = "Target Support Files/Pods-TikTok-TikTokUITests/Pods-TikTok-TikTokUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,8 +172,12 @@
 		02BE8D092418BE1C00AC8A04 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				02E1841D241A32B300E005CD /* SocialControlsView.xib */,
+				02E1841F241A332600E005CD /* PostDetails.xib */,
 				02BE8D0E2418CAE500AC8A04 /* FeedViewController.swift */,
 				02E184172419F91A00E005CD /* PostNode.swift */,
+				02E18421241A33FF00E005CD /* SocialControlsView.swift */,
+				02E18423241A37F500E005CD /* PostDetails.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -310,7 +322,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E18420241A332600E005CD /* PostDetails.xib in Resources */,
 				0272158E2416B17000CF8EF1 /* LaunchScreen.storyboard in Resources */,
+				02E1841E241A32B300E005CD /* SocialControlsView.xib in Resources */,
 				0272158B2416B17000CF8EF1 /* Assets.xcassets in Resources */,
 				027215892416B16F00CF8EF1 /* Main.storyboard in Resources */,
 			);
@@ -440,11 +454,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E18424241A37F500E005CD /* PostDetails.swift in Sources */,
 				02E184182419F91A00E005CD /* PostNode.swift in Sources */,
 				02BE8D062417047C00AC8A04 /* MuxApiClient.swift in Sources */,
 				027215862416B16F00CF8EF1 /* RecordViewController.swift in Sources */,
 				02E1841C2419FC7600E005CD /* GradientNode.m in Sources */,
 				027215822416B16F00CF8EF1 /* AppDelegate.swift in Sources */,
+				02E18422241A33FF00E005CD /* SocialControlsView.swift in Sources */,
 				02BE8D0F2418CAE500AC8A04 /* FeedViewController.swift in Sources */,
 				027215842416B16F00CF8EF1 /* SceneDelegate.swift in Sources */,
 			);

@@ -37,23 +37,34 @@ class PostNode: ASCellNode {
             self.videoNode.asset = AVAsset(url: self.getVideoURL(post: post)!)
             self.videoNode.play()
         }
-    
+        
         self.addSubnode(self.videoNode)
         self.addSubnode(self.gradientNode)
         
+        DispatchQueue.main.async() {
+            let socialControlsView = SocialControlsView()
+            socialControlsView.frame = CGRect(origin: CGPoint(x:300, y:280), size: CGSize(width: 83, height: 320))
+            self.view.addSubview(socialControlsView)
+            
+            let postDetailsView = PostDetails()
+            postDetailsView.frame =
+                CGRect(origin: CGPoint(x:0, y:600), size: CGSize(width: 414, height: 120))
+            self.view.addSubview(postDetailsView)
+            
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-//        let ratio = (constrainedSize.min.height)/constrainedSize.max.width;
+        //        let ratio = (constrainedSize.min.height)/constrainedSize.max.width;
         let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
         
         let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode);
         
-//        // Layout all nodes absolute in a static layout spec
-//        videoNode.style.layoutPosition = CGPoint(x: 0, y: 0);
-//        videoNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height);
-//        let absoluteSpec = ASAbsoluteLayoutSpec(children: [self.videoNode])
+        //        // Layout all nodes absolute in a static layout spec
+        //        videoNode.style.layoutPosition = CGPoint(x: 0, y: 0);
+        //        videoNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height);
+        //        let absoluteSpec = ASAbsoluteLayoutSpec(children: [self.videoNode])
         
         let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
         return gradientOverlaySpec
