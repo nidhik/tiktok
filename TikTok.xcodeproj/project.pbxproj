@@ -134,9 +134,6 @@
 		027215802416B16F00CF8EF1 /* TikTok */ = {
 			isa = PBXGroup;
 			children = (
-				02E1841B2419FC7600E005CD /* GradientNode.h */,
-				02E1841A2419FC7500E005CD /* GradientNode.m */,
-				02E184122419C4DD00E005CD /* Profile */,
 				02BE8D092418BE1C00AC8A04 /* Feed */,
 				027215812416B16F00CF8EF1 /* AppDelegate.swift */,
 				027215832416B16F00CF8EF1 /* SceneDelegate.swift */,
@@ -172,6 +169,8 @@
 		02BE8D092418BE1C00AC8A04 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				02E1841B2419FC7600E005CD /* GradientNode.h */,
+				02E1841A2419FC7500E005CD /* GradientNode.m */,
 				02E1841D241A32B300E005CD /* SocialControlsView.xib */,
 				02E1841F241A332600E005CD /* PostDetails.xib */,
 				02BE8D0E2418CAE500AC8A04 /* FeedViewController.swift */,
@@ -180,13 +179,6 @@
 				02E18423241A37F500E005CD /* PostDetails.swift */,
 			);
 			path = Feed;
-			sourceTree = "<group>";
-		};
-		02E184122419C4DD00E005CD /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		25C84A052684D4C21E60A81C /* Pods */ = {

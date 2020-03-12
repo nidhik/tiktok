@@ -23,24 +23,24 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.title = "Feed"
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()
-//        loadPosts()
+        //        loadPosts()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.insertSubview(tableNode.view, at: 0)
-//        self.view.addSubnode(tableNode)
+        //        self.view.addSubnode(tableNode)
         self.applyStyle()
         self.tableNode.leadingScreensForBatching = 1.0;  // overriding default of 2.0
-
+        
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.tableNode.frame = self.view.bounds;
     }
-
+    
     
     func applyStyle() {
         self.view.backgroundColor = .systemPink
@@ -104,35 +104,21 @@ extension FeedViewController: ASTableDelegate {
 
 extension FeedViewController {
     
-    func loadPosts() {
+    func retrieveNextPageWithCompletion( block: @escaping ([PFObject]) -> Void) {
         let query = PFQuery(className:"Post")
         query.order(byDescending: "createdAt")
         query.includeKey("asset")
+        query.whereKey("status", equalTo: "ready")
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
             } else if let objects = objects {
                 print("Successfully retrieved \(objects.count) posts.")
-                self.posts = objects
-                self.tableNode.reloadData()
+                DispatchQueue.main.async {
+                    block(objects)
+                }
             }
         }
-    }
-
-    func retrieveNextPageWithCompletion( block: @escaping ([PFObject]) -> Void) {
-          let query = PFQuery(className:"Post")
-          query.order(byDescending: "createdAt")
-          query.includeKey("asset")
-          query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-              if let error = error {
-                  print(error.localizedDescription)
-              } else if let objects = objects {
-                  print("Successfully retrieved \(objects.count) posts.")
-                  DispatchQueue.main.async {
-                      block(objects)
-                  }
-              }
-          }
     }
     
     func insertNewRowsInTableNode(newPosts: [PFObject]) {

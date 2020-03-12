@@ -18,6 +18,10 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     var captureSession: AVCaptureSession!
     var captureOutput: AVCaptureMovieFileOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+    var videoDeviceInput: AVCaptureDeviceInput!
+    
+    let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
+    mediaType: .video, position: .unspecified)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +52,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 captureSession.addInput(cameraInput)
                 captureSession.addInput(audioInput)
                 captureSession.addOutput(captureOutput)
+                self.videoDeviceInput = cameraInput
                 setupLivePreview()
             }
         }
@@ -139,6 +144,65 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     @IBAction func tappedFlipCamera(_ sender: Any) {
         // TODO: flip the camera
         print("Flip camera tapped")
+        DispatchQueue.global(qos: .userInitiated).async {
+            let currentVideoDevice = self.videoDeviceInput.device
+            let currentPosition = currentVideoDevice.position
+            
+            let preferredPosition: AVCaptureDevice.Position
+            let preferredDeviceType: AVCaptureDevice.DeviceType
+            
+            switch currentPosition {
+            case .unspecified, .front:
+                preferredPosition = .back
+                preferredDeviceType = .builtInDualCamera
+                
+            case .back:
+                preferredPosition = .front
+                preferredDeviceType = .builtInTrueDepthCamera
+                
+            @unknown default:
+                print("Unknown capture position. Defaulting to back, dual-camera.")
+                preferredPosition = .back
+                preferredDeviceType = .builtInDualCamera
+            }
+            let devices = self.videoDeviceDiscoverySession.devices
+            var newVideoDevice: AVCaptureDevice? = nil
+            
+            // First, seek a device with both the preferred position and device type. Otherwise, seek a device with only the preferred position.
+            if let device = devices.first(where: { $0.position == preferredPosition && $0.deviceType == preferredDeviceType }) {
+                newVideoDevice = device
+            } else if let device = devices.first(where: { $0.position == preferredPosition }) {
+                newVideoDevice = device
+            }
+            
+            if let videoDevice = newVideoDevice {
+                do {
+                    let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+                    
+                    self.captureSession.beginConfiguration()
+                    
+                    // Remove the existing device input first, because AVCaptureSession doesn't support
+                    // simultaneous use of the rear and front cameras.
+                    self.captureSession.removeInput(self.videoDeviceInput)
+                    
+                    if self.captureSession.canAddInput(videoDeviceInput) {
+                        self.captureSession.addInput(videoDeviceInput)
+                        self.videoDeviceInput = videoDeviceInput
+                    } else {
+                        self.captureSession.addInput(self.videoDeviceInput)
+                    }
+                    if let connection = self.captureOutput?.connection(with: .video) {
+                        if connection.isVideoStabilizationSupported {
+                            connection.preferredVideoStabilizationMode = .auto
+                        }
+                    }
+                    
+                    self.captureSession.commitConfiguration()
+                } catch {
+                    print("Error occurred while creating video device input: \(error)")
+                }
+            }
+        }
     }
     
     func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
