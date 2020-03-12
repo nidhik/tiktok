@@ -83,6 +83,7 @@ class RecordViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         } else {
             print("Error saving movie to disk: \(String(describing: error))")
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func animateRecordButton() {

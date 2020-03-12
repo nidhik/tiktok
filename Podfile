@@ -9,6 +9,7 @@ target 'TikTok' do
   pod 'Alamofire', '~> 5.0'
   pod 'AlamofireImage'
   pod 'Parse'
+  pod 'Texture'
   
   target 'TikTokTests' do
     inherit! :search_paths

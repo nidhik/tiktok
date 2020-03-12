@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uet-6T-i7X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AXk-ZS-SmM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -101,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-735" y="171"/>
+            <point key="canvasLocation" x="1844.9275362318842" y="166.74107142857142"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="bAR-dI-RDr">
@@ -118,34 +118,69 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="yPr-NT-85v"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EFW-2h-g7f">
-                                <rect key="frame" x="0.0" y="444" width="414" height="368"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <view contentMode="scaleToFill" ambiguous="YES" id="1LP-sD-Oxn">
-                                <rect key="frame" x="0.0" y="44" width="414" height="392"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="tKI-Af-rzr" firstAttribute="trailing" secondItem="EFW-2h-g7f" secondAttribute="trailing" id="29d-x0-r7b"/>
                             <constraint firstItem="tKI-Af-rzr" firstAttribute="bottom" secondItem="fgb-HK-EP0" secondAttribute="bottom" id="5wD-ng-1lm"/>
-                            <constraint firstItem="EFW-2h-g7f" firstAttribute="leading" secondItem="tKI-Af-rzr" secondAttribute="leading" id="MRF-PU-GAG"/>
-                            <constraint firstItem="EFW-2h-g7f" firstAttribute="top" secondItem="1LP-sD-Oxn" secondAttribute="bottom" id="NkP-Vf-ffD"/>
-                            <constraint firstItem="EFW-2h-g7f" firstAttribute="top" secondItem="tKI-Af-rzr" secondAttribute="top" constant="400" id="S1e-ZX-mQ2"/>
-                            <constraint firstItem="fgb-HK-EP0" firstAttribute="top" secondItem="EFW-2h-g7f" secondAttribute="bottom" constant="20" id="aXZ-FP-g5Q"/>
                             <constraint firstItem="fgb-HK-EP0" firstAttribute="centerX" secondItem="tKI-Af-rzr" secondAttribute="centerX" id="us5-e6-Aq0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tKI-Af-rzr"/>
                     </view>
-                    <connections>
-                        <outlet property="tableView" destination="EFW-2h-g7f" id="FUj-hL-16k"/>
-                        <outlet property="topView" destination="1LP-sD-Oxn" id="CTB-CI-5FN"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="6zo-IC-PoG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdI-vs-RJY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1015.9420289855074" y="167.41071428571428"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="Evf-79-S5B">
+            <objects>
+                <viewController id="V1r-bN-ECF" customClass="ProfileViewController" customModule="TikTok" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iek-K5-Rjj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="xdb-GN-hNB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ANe-y4-Tqk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3zH-tN-0P0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="710.14492753623199" y="-506.25"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="40t-et-1CS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F67-xL-ILg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Uk6-fn-Zhi">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="V1r-bN-ECF" kind="relationship" relationship="rootViewController" id="YtK-FW-FEl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lpq-P1-OQ1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200.00000000000003" y="-506.25"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="481-FI-l0V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AXk-ZS-SmM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="off-7h-pJP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uet-6T-i7X" kind="relationship" relationship="rootViewController" id="to4-8J-uSl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="haN-w0-PRP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="105.79710144927537" y="167.41071428571428"/>
         </scene>
