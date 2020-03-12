@@ -90,6 +90,16 @@ extension FeedViewController: ASTableDelegate {
             context.completeBatchFetching(true)
         }
     }
+    
+    func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
+        guard let node = node as? PostNode else { return }
+        node.mute()
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        guard let node = node as? PostNode else { return }
+        node.unmute()
+    }
 }
 
 extension FeedViewController {

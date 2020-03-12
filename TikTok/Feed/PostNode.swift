@@ -33,6 +33,7 @@ class PostNode: ASCellNode {
         self.videoNode.shouldAutoplay = true
         self.videoNode.shouldAutorepeat = true
         self.videoNode.gravity = AVLayerVideoGravity.resizeAspectFill.rawValue;
+    
         DispatchQueue.main.async() {
             self.videoNode.asset = AVAsset(url: self.getVideoURL(post: post)!)
             self.videoNode.play()
@@ -92,5 +93,13 @@ class PostNode: ASCellNode {
         
         let urlString = String(format: "https://stream.mux.com/%@.m3u8", id)
         return URL(string: urlString)
+    }
+    
+    func mute() {
+        self.videoNode.muted = true
+    }
+    
+    func unmute() {
+           self.videoNode.muted = false
     }
 }
