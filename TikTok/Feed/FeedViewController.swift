@@ -29,7 +29,8 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubnode(tableNode)
+        self.view.insertSubview(tableNode.view, at: 0)
+//        self.view.addSubnode(tableNode)
         self.applyStyle()
     }
     
