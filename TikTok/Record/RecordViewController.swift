@@ -135,8 +135,8 @@ class RecordViewController: UIViewController{
             _captureState = .start
             self.animateRecordButton()
         case .capturing:
-            // TODO: this should actually idle
-            _captureState = .end
+            self.stopAnimatingRecordButton()
+            _captureState = .end 
         default:
             break
         }
@@ -213,7 +213,10 @@ class RecordViewController: UIViewController{
     @IBAction func tappedDeleteSegment(_ sender: Any) {
     }
     
-
+    @IBAction func tappedDone(_ sender: Any) {
+        _captureState = .end
+    }
+    
     func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:
             [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
