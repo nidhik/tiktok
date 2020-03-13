@@ -17,7 +17,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:outputFileURL.path])
         [[NSFileManager defaultManager]removeItemAtPath:outputFileURL.path error:nil];
     
-    NSString *filePath = [bundle pathForResource:@"shake_it_off" ofType:@"m4a"];
+    NSString *filePath = [bundle pathForResource:@"Body_Language" ofType:@"mp3"];
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
     
     NSURL    *audio_inputFileUrl = [NSURL fileURLWithPath:filePath];

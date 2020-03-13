@@ -310,7 +310,7 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 extension RecordViewController {
     func playAudioFile() {
         if audioPlayer == nil {
-            guard let url = Bundle.main.url(forResource: "shake_it_off", withExtension: "m4a") else { return }
+            guard let url = Bundle.main.url(forResource: "Body_Language", withExtension: "mp3") else { return }
 
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
