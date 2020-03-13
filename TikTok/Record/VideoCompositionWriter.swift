@@ -32,59 +32,25 @@ class VideoCompositionWriter: NSObject {
 
     func mergeAudioVideo(_ documentsDirectory: URL, filename: String, clips: [String], completion: @escaping (Bool, URL?) -> Void) {
         
-        let firstVideoFile = documentsDirectory.appendingPathComponent(clips[0])
-        let secondVideoFile = documentsDirectory.appendingPathComponent(clips[1])
-        let firstAsset = AVURLAsset(url: firstVideoFile)
-        let secondAsset = AVURLAsset(url: secondVideoFile)
-
-//        // 1 - Create AVMutableComposition object. This object will hold your AVMutableCompositionTrack instances.
-//        let mixComposition = AVMutableComposition()
-//
-//        // 2 - Create two video tracks
-//        guard
-//          let firstTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
-//                                                          preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-//          else {
-//            return
-//        }
-//        do {
-//            let videoTimeRange = CMTimeRange(start: .zero, duration: firstAsset.duration)
-//            try firstTrack.insertTimeRange(videoTimeRange,
-//                                         of: firstAsset.tracks(withMediaType: AVMediaType.video)[0],
-//                                         at: CMTime.zero)
-//            let rotationTransform = CGAffineTransform(rotationAngle: .pi / 2);
-//            firstTrack.preferredTransform = rotationTransform;
-//        } catch {
-//          print("Failed to load first track")
-//          return
-//        }
-//
-//        guard
-//          let secondTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
-//                                                           preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-//          else {
-//            return
-//        }
-//        do {
-//            try secondTrack.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: secondAsset.duration),
-//                                          of: secondAsset.tracks(withMediaType: AVMediaType.video)[0],
-//                                          at: firstAsset.duration)
-//            let rotationTransform = CGAffineTransform(rotationAngle: .pi / 2);
-//            secondTrack.preferredTransform = rotationTransform;
-//        } catch {
-//          print("Failed to load second track")
-//          return
-//        }
+        
+        var assets: [AVAsset] = []
+        var totalDuration = CMTime.zero
+    
+        for clip in clips {
+            let videoFile = documentsDirectory.appendingPathComponent(clip)
+            let asset = AVURLAsset(url: videoFile)
+            assets.append(asset)
+            totalDuration = CMTimeAdd(totalDuration, asset.duration)
+        }
 
         // 3 - Audio track
-        let mixComposition = merge(arrayVideos: [firstAsset, secondAsset])
+        let mixComposition = merge(arrayVideos: assets)
         guard let audioUrl = Bundle.main.url(forResource: "Body_Language", withExtension: "mp3") else { return }
         let loadedAudioAsset = AVURLAsset(url: audioUrl)
           let audioTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: 0)
           do {
             try audioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
-                                                            duration: CMTimeAdd(firstAsset.duration,
-                                                                      secondAsset.duration)),
+                                                            duration: totalDuration),
                                             of: loadedAudioAsset.tracks(withMediaType: AVMediaType.audio)[0] ,
                                             at: CMTime.zero)
           } catch {
