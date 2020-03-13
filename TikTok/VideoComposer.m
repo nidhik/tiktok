@@ -22,7 +22,6 @@
     
     NSURL    *audio_inputFileUrl = [NSURL fileURLWithPath:filePath];
     NSURL *video_inputFileUrl = [_documentsDirectory URLByAppendingPathComponent:filename];
-    //    NSURL    *video_inputFileUrl = [NSURL fileURLWithPath:videoOutputPath];
     
     CMTime nextClipStartTime = kCMTimeZero;
     
@@ -31,9 +30,12 @@
     
     AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:nextClipStartTime error:nil];
+       CGAffineTransform rotationTransform = CGAffineTransformMakeRotation(M_PI_2);
+    //    CGAffineTransform rotateTranslate = CGAffineTransformTranslate(rotationTransform,360,0);
+        a_compositionVideoTrack.preferredTransform = rotationTransform;
     
     AVURLAsset* audioAsset = [[AVURLAsset alloc]initWithURL:audio_inputFileUrl options:nil];
-    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration);
     AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
     [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:nextClipStartTime error:nil];
     

@@ -16,7 +16,7 @@ class RecordViewController: UIViewController{
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet var captureView: UIView!
     var captureSession: AVCaptureSession!
-
+    
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var videoDeviceInput: AVCaptureDeviceInput!
     
@@ -195,11 +195,11 @@ class RecordViewController: UIViewController{
                     } else {
                         self.captureSession.addInput(self.videoDeviceInput)
                     }
-//                    if let connection = self._videoOutput?.connection(with: .video) {
-//                        if connection.isVideoStabilizationSupported {
-//                            connection.preferredVideoStabilizationMode = .auto
-//                        }
-//                    }
+                    //                    if let connection = self._videoOutput?.connection(with: .video) {
+                    //                        if connection.isVideoStabilizationSupported {
+                    //                            connection.preferredVideoStabilizationMode = .auto
+                    //                        }
+                    //                    }
                     
                     self.captureSession.commitConfiguration()
                 } catch {
@@ -263,23 +263,24 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             break
         case .end:
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-           // let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            // let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
                 self?._captureState = .idle
                 self?._assetWriter = nil
                 self?._assetWriterInput = nil
-                if let self = self, let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    VideoComposer().mergeAudioVideo(dir, filename: "\(self._filename).mov") { success in
-                        if success {
-                            let client = MuxApiClient()
-                            let outURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("out_\(self._filename).mov")
-                            client.uploadVideo(fileURL: outURL)
+                DispatchQueue.main.async {
+                    
+                    if let self = self, let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                        VideoComposer().mergeAudioVideo(dir, filename: "\(self._filename).mov") { success in
+                            if success {
+                                let client = MuxApiClient()
+                                let outURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("out_\(self._filename).mov")
+                                client.uploadVideo(fileURL: outURL)
+                            }
                         }
                     }
-                }
-               
-                DispatchQueue.main.async {
+                    
                     self?.stopAnimatingRecordButton()
                     self?.dismiss(animated: true, completion: nil)
                 }
