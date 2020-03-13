@@ -133,10 +133,8 @@ class RecordViewController: UIViewController{
         switch _captureState {
         case .idle:
             _captureState = .start
-            self.animateRecordButton()
         case .capturing:
-            self.stopAnimatingRecordButton()
-            _captureState = .end 
+            _captureState = .idle
         default:
             break
         }
@@ -234,6 +232,9 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         switch _captureState {
         case .start:
             // Set up recorder
+            DispatchQueue.main.async {
+                self.animateRecordButton()
+            }
             _filename = UUID().uuidString
             let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
             let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
@@ -274,8 +275,10 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
-        default:
-            break
+        case .idle:
+            DispatchQueue.main.async {
+                self.stopAnimatingRecordButton()
+            }
         }
     }
 }
