@@ -31,6 +31,9 @@ class RecordViewController: UIViewController{
     @IBOutlet weak var deleteSegmentButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
+
+    var audioPlayer: AVAudioPlayer?
+    
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera],
                                                                        mediaType: .video, position: .unspecified)
     
@@ -42,6 +45,7 @@ class RecordViewController: UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.captureSession.stopRunning()
+        self.audioPlayer = nil
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -235,6 +239,7 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Set up recorder
             DispatchQueue.main.async {
                 self.animateRecordButton()
+                self.playAudioFile()
             }
             _filename = UUID().uuidString
             let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
@@ -248,8 +253,9 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             if writer.canAdd(input) {
                 writer.add(input)
             }
+            let startingTimeDelay = CMTimeMakeWithSeconds(0.5, preferredTimescale: 1000000000)
             writer.startWriting()
-            writer.startSession(atSourceTime: .zero)
+            writer.startSession(atSourceTime: .zero + startingTimeDelay)
             _assetWriter = writer
             _assetWriterInput = input
             _adpater = adapter
@@ -283,12 +289,45 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     
                     self?.stopAnimatingRecordButton()
                     self?.dismiss(animated: true, completion: nil)
+                    self?.pauseAudio()
                 }
             }
         case .idle:
             DispatchQueue.main.async {
+                self.pauseAudio()
                 self.stopAnimatingRecordButton()
             }
         }
+    }
+}
+
+extension RecordViewController {
+    func playAudioFile() {
+        if audioPlayer == nil {
+            guard let url = Bundle.main.url(forResource: "shake_it_off", withExtension: "m4a") else { return }
+
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                try AVAudioSession.sharedInstance().setActive(true)
+
+                // For iOS 11
+                audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+                // For iOS versions < 11
+                audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
+
+                guard let aPlayer = audioPlayer else { return }
+                aPlayer.play()
+
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        } else {
+            self.audioPlayer?.play()
+        }
+    }
+    
+    func pauseAudio() {
+        audioPlayer?.pause()
     }
 }
