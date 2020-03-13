@@ -30,13 +30,12 @@ class PostNode: ASCellNode {
         self.gradientNode.isOpaque = false;
         
         self.videoNode.url = self.getThumbnailURL(post: post)
-        self.videoNode.shouldAutoplay = true
+        self.videoNode.shouldAutoplay = false
         self.videoNode.shouldAutorepeat = true
         self.videoNode.gravity = AVLayerVideoGravity.resizeAspectFill.rawValue;
     
         DispatchQueue.main.async() {
             self.videoNode.asset = AVAsset(url: self.getVideoURL(post: post)!)
-            self.videoNode.play()
         }
         
         self.addSubnode(self.videoNode)
@@ -84,9 +83,13 @@ class PostNode: ASCellNode {
     }
     
     func getVideoURL(post: PFObject) -> URL? {
+        if let src = post["videoSrc"] as? String {
+            return URL(string: src)
+        }
         guard let asset = post["asset"] as? [String: Any],
             let playbackIds = asset["playback_ids"] as? [[String: Any]],
             let id = playbackIds[0]["id"] as? String else {
+                
                 print("cannot get playback id from post")
                 return nil
         }

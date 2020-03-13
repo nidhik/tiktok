@@ -9,7 +9,12 @@
 import UIKit
 import AVFoundation
 
+protocol RecordedVideoDelegate {
+    func didUploadVideo(fileUrl: URL)
+}
 class RecordViewController: UIViewController{
+    
+    var delegate: RecordedVideoDelegate?
     
     @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var previewView: UIView!
@@ -283,6 +288,7 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                                 let client = MuxApiClient()
                                 let outURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("out_\(self._filename).mov")
                                 client.uploadVideo(fileURL: outURL)
+                                self.delegate?.didUploadVideo(fileUrl: outURL)
                             }
                         }
                     }

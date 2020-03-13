@@ -158,7 +158,7 @@
                     <navigationItem key="navigationItem" id="6zo-IC-PoG">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="BFG-8l-OBu">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="j0n-53-zsd"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="recordSegue" modalPresentationStyle="fullScreen" id="j0n-53-zsd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -16,7 +16,7 @@ class FeedViewController: UIViewController, UIScrollViewDelegate {
     
     var tableNode: ASTableNode!
     var posts : [PFObject] = []
-    
+    var lastNode: PostNode?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -65,7 +65,10 @@ extension FeedViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let post = self.posts[indexPath.row]
         return {
-            return PostNode(with: post)
+            let node = PostNode(with: post)
+            node.debugName = "Node \(indexPath.row)"
+
+            return node
         }
     }
     
@@ -89,25 +92,17 @@ extension FeedViewController: ASTableDelegate {
             context.completeBatchFetching(true)
         }
     }
-    
-    func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
-        guard let node = node as? PostNode else { return }
-        node.mute()
-    }
-    
-    func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
-        guard let node = node as? PostNode else { return }
-        node.unmute()
-    }
 }
 
 extension FeedViewController {
     
     func retrieveNextPageWithCompletion( block: @escaping ([PFObject]) -> Void) {
         let query = PFQuery(className:"Post")
-        query.order(byDescending: "createdAt")
+        query.order(byAscending:"createdAt")
         query.includeKey("asset")
         query.whereKey("status", equalTo: "ready")
+        query.limit = 2
+        query.skip = self.posts.count
         query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
@@ -121,6 +116,9 @@ extension FeedViewController {
     }
     
     func insertNewRowsInTableNode(newPosts: [PFObject]) {
+        guard newPosts.count > 0 else {
+            return
+        }
         let section = 0
         var indexPaths: [IndexPath] = []
         let total = self.posts.count + newPosts.count
@@ -131,5 +129,28 @@ extension FeedViewController {
         self.posts.append(contentsOf: newPosts)
         self.tableNode.insertRows(at: indexPaths, with: .none)
         
+    }
+    
+    
+}
+
+extension FeedViewController : RecordedVideoDelegate {
+    
+    func didUploadVideo(fileUrl: URL) {
+        let model = PFObject(className: "Post")
+        model["videoSrc"] = fileUrl.absoluteString
+        self.posts.append(model)
+        DispatchQueue.main.async {
+            self.tableNode.reloadData()
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recordSegue" {
+            guard let dest = segue.destination as? RecordViewController else { return }
+                dest.delegate = self
+            
+        }
     }
 }
