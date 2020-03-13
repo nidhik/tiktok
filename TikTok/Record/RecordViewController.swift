@@ -36,6 +36,7 @@ class RecordViewController: UIViewController{
     @IBOutlet weak var deleteSegmentButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
+    var clips : [String] = []
 
     var audioPlayer: AVAudioPlayer?
     
@@ -144,7 +145,7 @@ class RecordViewController: UIViewController{
         case .idle:
             _captureState = .start
         case .capturing:
-            _captureState = .idle
+            _captureState = .end
         default:
             break
         }
@@ -222,7 +223,7 @@ class RecordViewController: UIViewController{
     }
     
     @IBAction func tappedDone(_ sender: Any) {
-        _captureState = .end
+        self.mergeSegmentsAndUpload(clips: self.clips)
     }
     
     func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
@@ -237,6 +238,27 @@ class RecordViewController: UIViewController{
 }
 
 extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+
+    func mergeSegmentsAndUpload(clips: [String]) {
+        DispatchQueue.main.async {
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                VideoCompositionWriter().mergeAudioVideo(dir, filename: "\(self._filename).mov", clips: self.clips) { success, outUrl in
+                    if success {
+                        let client = MuxApiClient()
+                        if let outURL = outUrl {
+                            client.uploadVideo(fileURL: outURL)
+                            self.delegate?.didUploadVideo(fileUrl: outURL)
+                        }
+                    }
+                }
+            }
+            
+            self.stopAnimatingRecordButton()
+            self.dismiss(animated: true, completion: nil)
+            self.pauseAudio()
+        }
+    }
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
         switch _captureState {
@@ -247,6 +269,7 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self.playAudioFile()
             }
             _filename = UUID().uuidString
+            self.clips.append("\(_filename).mov")
             let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
             let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
             let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mov)
@@ -274,29 +297,16 @@ extension RecordViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             break
         case .end:
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            // let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
                 self?._captureState = .idle
                 self?._assetWriter = nil
                 self?._assetWriterInput = nil
                 DispatchQueue.main.async {
-                    
-                    if let self = self, let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                        VideoComposer().mergeAudioVideo(dir, filename: "\(self._filename).mov") { success in
-                            if success {
-                                let client = MuxApiClient()
-                                let outURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("out_\(self._filename).mov")
-                                client.uploadVideo(fileURL: outURL)
-                                self.delegate?.didUploadVideo(fileUrl: outURL)
-                            }
-                        }
-                    }
-                    
-                    self?.stopAnimatingRecordButton()
-                    self?.dismiss(animated: true, completion: nil)
                     self?.pauseAudio()
+                    self?.stopAnimatingRecordButton()
                 }
+                
             }
         case .idle:
             DispatchQueue.main.async {

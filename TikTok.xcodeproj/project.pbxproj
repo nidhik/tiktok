@@ -11,6 +11,7 @@
 		0202ED1E241BF90C00F1843A /* Body_Language.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED19241BF90A00F1843A /* Body_Language.mp3 */; };
 		0202ED1F241BF90C00F1843A /* Best.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED1A241BF90B00F1843A /* Best.mp3 */; };
 		0202ED20241BF90C00F1843A /* The_Reason.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED1B241BF90B00F1843A /* The_Reason.mp3 */; };
+		0202ED23241C017900F1843A /* VideoCompositionWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0202ED22241C017900F1843A /* VideoCompositionWriter.swift */; };
 		024A0CC2241B133200F15976 /* VideoComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 024A0CC1241B133200F15976 /* VideoComposer.m */; };
 		024A0CC4241B140600F15976 /* shake_it_off.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 024A0CC3241B140600F15976 /* shake_it_off.m4a */; };
 		024A0CC8241B1AD500F15976 /* P1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 024A0CC7241B1AD500F15976 /* P1.mp4 */; };
@@ -57,6 +58,7 @@
 		0202ED19241BF90A00F1843A /* Body_Language.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Body_Language.mp3; sourceTree = "<group>"; };
 		0202ED1A241BF90B00F1843A /* Best.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Best.mp3; sourceTree = "<group>"; };
 		0202ED1B241BF90B00F1843A /* The_Reason.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = The_Reason.mp3; sourceTree = "<group>"; };
+		0202ED22241C017900F1843A /* VideoCompositionWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompositionWriter.swift; sourceTree = "<group>"; };
 		024A0CC0241B133200F15976 /* VideoComposer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoComposer.h; sourceTree = "<group>"; };
 		024A0CC1241B133200F15976 /* VideoComposer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoComposer.m; sourceTree = "<group>"; };
 		024A0CC3241B140600F15976 /* shake_it_off.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake_it_off.m4a; sourceTree = "<group>"; };
@@ -165,8 +167,6 @@
 				0272158F2416B17000CF8EF1 /* Info.plist */,
 				02BE8D052417047C00AC8A04 /* MuxApiClient.swift */,
 				02E184192419FC7500E005CD /* TikTok-Bridging-Header.h */,
-				024A0CC0241B133200F15976 /* VideoComposer.h */,
-				024A0CC1241B133200F15976 /* VideoComposer.m */,
 			);
 			path = TikTok;
 			sourceTree = "<group>";
@@ -207,7 +207,10 @@
 		02E18425241AF30F00E005CD /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				024A0CC0241B133200F15976 /* VideoComposer.h */,
+				024A0CC1241B133200F15976 /* VideoComposer.m */,
 				027215852416B16F00CF8EF1 /* RecordViewController.swift */,
+				0202ED22241C017900F1843A /* VideoCompositionWriter.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				02E184182419F91A00E005CD /* PostNode.swift in Sources */,
 				02BE8D062417047C00AC8A04 /* MuxApiClient.swift in Sources */,
 				027215862416B16F00CF8EF1 /* RecordViewController.swift in Sources */,
+				0202ED23241C017900F1843A /* VideoCompositionWriter.swift in Sources */,
 				02E1841C2419FC7600E005CD /* GradientNode.m in Sources */,
 				024A0CC2241B133200F15976 /* VideoComposer.m in Sources */,
 				027215822416B16F00CF8EF1 /* AppDelegate.swift in Sources */,
