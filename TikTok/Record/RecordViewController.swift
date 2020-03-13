@@ -46,6 +46,10 @@ class RecordViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            VideoComposer().mergeAudioVideo(dir)
+        }
+        
         // Setup camera here
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .medium
