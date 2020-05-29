@@ -7,14 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0202ED1D241BF90C00F1843A /* Atoll_Moao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED18241BF90A00F1843A /* Atoll_Moao.mp3 */; };
 		0202ED1E241BF90C00F1843A /* Body_Language.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED19241BF90A00F1843A /* Body_Language.mp3 */; };
-		0202ED1F241BF90C00F1843A /* Best.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED1A241BF90B00F1843A /* Best.mp3 */; };
-		0202ED20241BF90C00F1843A /* The_Reason.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0202ED1B241BF90B00F1843A /* The_Reason.mp3 */; };
 		0202ED23241C017900F1843A /* VideoCompositionWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0202ED22241C017900F1843A /* VideoCompositionWriter.swift */; };
-		024A0CC2241B133200F15976 /* VideoComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 024A0CC1241B133200F15976 /* VideoComposer.m */; };
-		024A0CC4241B140600F15976 /* shake_it_off.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 024A0CC3241B140600F15976 /* shake_it_off.m4a */; };
-		024A0CC8241B1AD500F15976 /* P1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 024A0CC7241B1AD500F15976 /* P1.mp4 */; };
 		027215822416B16F00CF8EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027215812416B16F00CF8EF1 /* AppDelegate.swift */; };
 		027215842416B16F00CF8EF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027215832416B16F00CF8EF1 /* SceneDelegate.swift */; };
 		027215862416B16F00CF8EF1 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027215852416B16F00CF8EF1 /* RecordViewController.swift */; };
@@ -54,15 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0202ED18241BF90A00F1843A /* Atoll_Moao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Atoll_Moao.mp3; sourceTree = "<group>"; };
 		0202ED19241BF90A00F1843A /* Body_Language.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Body_Language.mp3; sourceTree = "<group>"; };
-		0202ED1A241BF90B00F1843A /* Best.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Best.mp3; sourceTree = "<group>"; };
-		0202ED1B241BF90B00F1843A /* The_Reason.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = The_Reason.mp3; sourceTree = "<group>"; };
 		0202ED22241C017900F1843A /* VideoCompositionWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompositionWriter.swift; sourceTree = "<group>"; };
-		024A0CC0241B133200F15976 /* VideoComposer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoComposer.h; sourceTree = "<group>"; };
-		024A0CC1241B133200F15976 /* VideoComposer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoComposer.m; sourceTree = "<group>"; };
-		024A0CC3241B140600F15976 /* shake_it_off.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake_it_off.m4a; sourceTree = "<group>"; };
-		024A0CC7241B1AD500F15976 /* P1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = P1.mp4; sourceTree = "<group>"; };
 		0272157E2416B16F00CF8EF1 /* TikTok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikTok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		027215812416B16F00CF8EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		027215832416B16F00CF8EF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,12 +138,7 @@
 		027215802416B16F00CF8EF1 /* TikTok */ = {
 			isa = PBXGroup;
 			children = (
-				0202ED18241BF90A00F1843A /* Atoll_Moao.mp3 */,
 				0202ED19241BF90A00F1843A /* Body_Language.mp3 */,
-				0202ED1A241BF90B00F1843A /* Best.mp3 */,
-				0202ED1B241BF90B00F1843A /* The_Reason.mp3 */,
-				024A0CC3241B140600F15976 /* shake_it_off.m4a */,
-				024A0CC7241B1AD500F15976 /* P1.mp4 */,
 				02E18425241AF30F00E005CD /* Record */,
 				02BE8D092418BE1C00AC8A04 /* Feed */,
 				027215812416B16F00CF8EF1 /* AppDelegate.swift */,
@@ -207,8 +189,6 @@
 		02E18425241AF30F00E005CD /* Record */ = {
 			isa = PBXGroup;
 			children = (
-				024A0CC0241B133200F15976 /* VideoComposer.h */,
-				024A0CC1241B133200F15976 /* VideoComposer.m */,
 				027215852416B16F00CF8EF1 /* RecordViewController.swift */,
 				0202ED22241C017900F1843A /* VideoCompositionWriter.swift */,
 			);
@@ -353,11 +333,6 @@
 				0272158E2416B17000CF8EF1 /* LaunchScreen.storyboard in Resources */,
 				02E1841E241A32B300E005CD /* SocialControlsView.xib in Resources */,
 				0272158B2416B17000CF8EF1 /* Assets.xcassets in Resources */,
-				0202ED1D241BF90C00F1843A /* Atoll_Moao.mp3 in Resources */,
-				0202ED1F241BF90C00F1843A /* Best.mp3 in Resources */,
-				0202ED20241BF90C00F1843A /* The_Reason.mp3 in Resources */,
-				024A0CC4241B140600F15976 /* shake_it_off.m4a in Resources */,
-				024A0CC8241B1AD500F15976 /* P1.mp4 in Resources */,
 				027215892416B16F00CF8EF1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,7 +467,6 @@
 				027215862416B16F00CF8EF1 /* RecordViewController.swift in Sources */,
 				0202ED23241C017900F1843A /* VideoCompositionWriter.swift in Sources */,
 				02E1841C2419FC7600E005CD /* GradientNode.m in Sources */,
-				024A0CC2241B133200F15976 /* VideoComposer.m in Sources */,
 				027215822416B16F00CF8EF1 /* AppDelegate.swift in Sources */,
 				02E18422241A33FF00E005CD /* SocialControlsView.swift in Sources */,
 				02BE8D0F2418CAE500AC8A04 /* FeedViewController.swift in Sources */,

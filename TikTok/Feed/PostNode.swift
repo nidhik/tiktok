@@ -56,16 +56,8 @@ class PostNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        //        let ratio = (constrainedSize.min.height)/constrainedSize.max.width;
         let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
-        
         let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode);
-        
-        //        // Layout all nodes absolute in a static layout spec
-        //        videoNode.style.layoutPosition = CGPoint(x: 0, y: 0);
-        //        videoNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height);
-        //        let absoluteSpec = ASAbsoluteLayoutSpec(children: [self.videoNode])
-        
         let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
         return gradientOverlaySpec
     }

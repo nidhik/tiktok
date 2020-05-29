@@ -99,6 +99,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="Sno-dF-cQj" firstAttribute="centerY" secondItem="NHD-MK-cEZ" secondAttribute="centerY" id="2sy-DA-S0g"/>
                                             <constraint firstItem="8LB-TI-zCd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pEF-8l-hAf" secondAttribute="trailing" constant="8" symbolic="YES" id="33P-Bz-cvB"/>
