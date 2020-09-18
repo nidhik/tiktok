@@ -2,11 +2,11 @@ PODS:
   - Alamofire (5.0.2)
   - AlamofireImage (4.0.3):
     - Alamofire (< 6.0.0, >= 5.0.2)
-  - Bolts/Tasks (1.9.0)
-  - Parse (1.17.3):
-    - Parse/Core (= 1.17.3)
-  - Parse/Core (1.17.3):
-    - Bolts/Tasks (~> 1.9)
+  - Bolts/Tasks (1.9.1)
+  - Parse (1.19.0):
+    - Parse/Core (= 1.19.0)
+  - Parse/Core (1.19.0):
+    - Bolts/Tasks (= 1.9.1)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
     - PINCache/Core (= 3.0.1-beta.6)
@@ -63,8 +63,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 3ba7a4db18b4f62c4a1c0e1cb39d7f3d52e10ada
   AlamofireImage: 3d1a2010519e58675318735580eb856e88840ff7
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
+  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  Parse: 0fb5c7cc7ee5900f2434e24607d0496155b8d04f
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
@@ -72,4 +72,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 71dcf66fdeab8e7c8294eacdf9231221c9b96b2e
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3
